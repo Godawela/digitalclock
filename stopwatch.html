@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Stop Watch</title>
+        <link rel="stylesheet" href="watchStyle.css" />
+    </head>
+    <body>
+        <div class="container">
+           
+                <div class="outer-circle">
+                    <div class="inner-circle">
+                        <span id="minutes" class=" text">00</span>:<span id="seconds" class=" text">00</span>:<span id="tens" class="text">00 </span>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <button class="button" id="start">Start</button>
+                    <button class="button" id="stop">Stop</button>
+                    <button class="button" id="reset">Reset</button>
+                </div>
+            
+        </div>
+
+        <script>
+            window.onload = function() {
+                let minutes = 0;
+                let seconds = 0;
+                let tens = 0;
+                let appendMinutes = document.querySelector('#minutes');
+                let appendSeconds = document.querySelector('#seconds');
+                let appendTens = document.querySelector('#tens');
+                let startBtn = document.querySelector('#start');
+                let stopBtn = document.querySelector('#stop');
+                let resetBtn = document.querySelector('#reset');
+                let interval;
+                const bg =document.getElementsByClassName("outer-circle")[0];
+
+                const startTimer = () => {
+                    bg.classList.add("animation-bg");
+                    tens++;
+                    if (tens <= 9){
+                        appendTens.innerHTML = '0' + tens;
+                    }
+
+                    if (tens > 9){
+                        appendTens.innerHTML = tens;
+                    }
+
+                    if(tens>99){
+                        seconds++;
+                        appendSeconds.innerHTML = '0' + seconds;
+                        tens = 0;
+                        appendTens.innerHTML = '0' + 0;
+                    }
+
+                    if (seconds > 9){
+                        appendSeconds.innerHTML = seconds;
+                    }
+
+                    if (seconds > 59){
+                        minutes++;
+                        appendMinutes.innerHTML = '0' + minutes;
+                        seconds = 0;
+                        appendSeconds.innerHTML = '0' + 0;
+                    }
+                };
+
+                startBtn.onclick = () => {
+                    clearInterval(interval);
+                    interval = setInterval(startTimer, 10);
+                };
+
+                stopBtn.onclick = () => {
+                    clearInterval(interval);
+                };
+
+                resetBtn.onclick = () => {
+                    bg.classList.remove("animation-bg");
+                    clearInterval(interval);
+                    tens = '00';
+                    seconds = '00';
+                    minutes = '00';
+                    appendTens.innerHTML = tens;
+                    appendSeconds.innerHTML = seconds;
+                    appendMinutes.innerHTML = minutes;
+                };
+                
+                };
+            
+        </script>
+    </body>
+</html>
